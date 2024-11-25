@@ -1,7 +1,6 @@
 """A Simple Calculator"""
 
 from expr import Expr, Sum, Product, Constant
-
 import re 
 
 
@@ -10,9 +9,9 @@ def parse(s: str) -> Expr:
     # e.g., "( 2 + 3 )" becomes ["(", "2", "+", "3", ")"]
 
     #add whitespace between content and end parenthesis  
-    s = re.sub(r'([^)^(])', r'\1 \2', s)
+    s = re.sub(r'([^)^(])(\))', r'\1 \2', s)
     #split if parenthesis or if it ends in a whitespace
-    words = re.finall(r'[()]|\S+', s)
+    words = re.findall(r'[()]|\S+', s)
 
     answer = parse_list(words)
     if len(words) > 0:
@@ -100,5 +99,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # What to do if someone runs "ptyhon calc.py"
+    # What to do if someone runs "pyhon calc.py"
     main()
