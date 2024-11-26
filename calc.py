@@ -18,7 +18,6 @@ def parse(s: str) -> Expr:
         raise ValueError(f"Extra junk at end of input: {words!r}")
     return answer
 
-
 def parse_list(words: list[str]) -> Expr:
     """Parse & remove a *prefix* of the list as an expression.
 
@@ -41,9 +40,10 @@ def parse_list(words: list[str]) -> Expr:
 
     if next == "(":
         # It's a parenthesized expression!
-        e1 = parse_list(words)  # there should be an expression after (
         op = words.pop(0)  # there should be a operator after e1
+        e1 = parse_list(words)  # there should be an expression after (
         e2 = parse_list(words)  # there should be an expression after op
+
         after = words.pop(0)  # there should be a ) after the e2
         if after != ")":
             raise ValueError(f"Expected ), but found {after!r}")
@@ -65,7 +65,7 @@ def main():
     """The main calculator loop."""
 
     # Start with a demo
-    s1 = "( ( 2 + 4 ) * 7 )"
+    s1 = "(* ( + 2 4) 7)"
     e1 = parse(s1)
 
     print(s1)
