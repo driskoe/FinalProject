@@ -2,21 +2,29 @@
 import abc
 import heapq
 
+
+#global variables
+#all free registers from r1 to r13
 freeRegisters = [f"r{i}" for i in range(1,14)]
 heapq.heapify(freeRegisters)
 
+#current line num
 lineNum = 0
 
+
 def allocateReg():
+    """removes the first register in the priority queue and returns it"""
     if not freeRegisters:
         raise RuntimeError("No free registers available")
     return heapq.heappop(freeRegisters)
 
 def freeReg(reg):
+    """after done with the register, adds it back into the priority queue of free registers"""
     heapq.heappush(freeRegisters, reg)
 
 
 def incrementLine(originalLine):
+    """increments the lineNum global variable by 1 and returns the old lineNum value as a string in proper HMMMM line number format (two digits)"""
     global lineNum
     lineNum = originalLine+1
     originalLine = str(originalLine)
@@ -113,7 +121,7 @@ class Product(Expr):
         return f"Product({self.left}, {self.right})"
 
 class Quotient(Expr):
-    """Represent the remainder when dividing two subexpressions."""
+    """Represent the quotient of two subexpressions."""
 
     def __init__(self, left: Expr, right: Expr):
         self.left = left

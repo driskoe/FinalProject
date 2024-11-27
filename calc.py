@@ -40,9 +40,11 @@ def parse_list(words: list[str]) -> Expr:
 
     if next == "(":
         # It's a parenthesized expression!
-        op = words.pop(0)  # there should be a operator after e1
-        e1 = parse_list(words)  # there should be an expression after (
-        e2 = parse_list(words)  # there should be an expression after op
+
+        #prefix notation (only for 2) *need to expand
+        op = words.pop(0)  
+        e1 = parse_list(words)  
+        e2 = parse_list(words)  
 
         after = words.pop(0)  # there should be a ) after the e2
         if after != ")":
