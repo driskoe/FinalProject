@@ -49,20 +49,30 @@ def parse_list(words: list[str]) -> Expr:
             raise ValueError(f"Expected ), but found {after!r}")
 
         if op == "+":
-            return Sum(e1, e2)
+            result = Sum(e1, e2)
+            result.eval()
+            return result
         elif op == "*":
-            return Product(e1, e2)
+            result = Product(e1, e2)
+            result.eval()
+            return result
         elif op == "/":
-            return Quotient(e1, e2)
+            result = Quotient(e1, e2)
+            result.eval()
+            return result
         elif op == "mod":
-            return Modulus(e1, e2)
+            result =  Modulus(e1, e2)
+            result.eval()
+            return result
         else:
             raise ValueError(f"Unrecognized binary operator {op!r}")
 
     else:
         # if we expect an expression, and it doesn't start with a left paren,
         # it must be a number
-        return Constant(float(next))
+        result =  Constant(float(next))
+        result.eval()
+        return result
 
 
 def main():

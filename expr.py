@@ -62,7 +62,7 @@ class Sum(Expr):
         self.right = right
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " add " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        value =  incrementLine(lineNum) + " add " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
         print(value)
         return value
 
@@ -81,7 +81,7 @@ class Product(Expr):
         self.right = right
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " mul " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        value =  incrementLine(lineNum) + " mul " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
         print(value)
         return value
 
@@ -99,7 +99,7 @@ class Quotient(Expr):
         self.right = right
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " div " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        value =  incrementLine(lineNum) + " div " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
         print(value)
         return value
 
@@ -117,7 +117,7 @@ class Modulus(Expr):
         self.right = right
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " mod " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        value =  incrementLine(lineNum) + " mod " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
         print(value)
         return value
 
