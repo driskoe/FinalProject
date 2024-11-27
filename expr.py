@@ -43,7 +43,9 @@ class Constant(Expr):
         self.value = value
 
     def eval(self) -> str:
-        return incrementLine(lineNum) + " setn r" + incrementRegister(minOpenReg) + " " + str(self.value)
+        value =  incrementLine(lineNum) + " setn r" + incrementRegister(minOpenReg) + " " + str(self.value)
+        print(value)
+        return value
 
     def __str__(self) -> str:
         return f"{self.value}"
@@ -60,7 +62,9 @@ class Sum(Expr):
         self.right = right
 
     def eval(self) -> str:
-        return self.left.eval() + self.right.eval()
+        value =  incrementLine(lineNum) + " add " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        print(value)
+        return value
 
     def __str__(self) -> str:
         return f"({self.left} + {self.right})"
@@ -76,8 +80,10 @@ class Product(Expr):
         self.left = left
         self.right = right
 
-    def eval(self) -> float:
-        return self.left.eval() * self.right.eval()
+    def eval(self) -> str:
+        value =  incrementLine(lineNum) + " mul " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        print(value)
+        return value
 
     def __str__(self) -> str:
         return f"({self.left} * {self.right})"
@@ -92,8 +98,10 @@ class Quotient(Expr):
         self.left = left
         self.right = right
 
-    def eval(self) -> float:
-        return self.left.eval() / self.right.eval()
+    def eval(self) -> str:
+        value =  incrementLine(lineNum) + " div " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        print(value)
+        return value
 
     def __str__(self) -> str:
         return f"({self.left} / {self.right})"
@@ -108,8 +116,10 @@ class Modulus(Expr):
         self.left = left
         self.right = right
 
-    def eval(self) -> float:
-        return self.left.eval() % self.right.eval()
+    def eval(self) -> str:
+        value =  incrementLine(lineNum) + " mod " + "idealRegister" + " " + "left'sRegister" + "right'sRegister"
+        print(value)
+        return value
 
     def __str__(self) -> str:
         return f"({self.left} % {self.right})"
