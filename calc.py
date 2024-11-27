@@ -3,8 +3,6 @@
 from expr import Expr, Sum, Product, Quotient, Modulus, Constant
 import re 
 
-minOpenReg = 1
-lineNum = 00 
 
 def parse(s: str) -> Expr:
     """Parse a string into an expression."""
@@ -64,14 +62,14 @@ def parse_list(words: list[str]) -> Expr:
     else:
         # if we expect an expression, and it doesn't start with a left paren,
         # it must be a number
-        return "setn r1 " + float(next)
+        return Constant(float(next))
 
 
 def main():
     """The main calculator loop."""
 
     # Start with a demo
-    s1 = "(* ( + 2 4) 7)"
+    s1 = "4"
     e1 = parse(s1)
 
     print(s1)

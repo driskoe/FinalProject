@@ -2,12 +2,28 @@
 import abc
 
 
+minOpenReg = 1
+lineNum = 0
+
+def incrementLine(originalLine):
+    global lineNum
+    lineNum = originalLine+1
+    originalLine = str(originalLine)
+    if(len(originalLine) == 1):
+        originalLine = "0" + originalLine
+    return originalLine
+
+def incrementRegister(originalReg):
+    global minOpenReg
+    minOpenReg+=1
+    return str(originalReg)
+
 # An abstract class that serves as an interface.
 class Expr(abc.ABC):
     """Represents an arithmetic expression."""
 
     @abc.abstractmethod
-    def eval(self) -> float:
+    def eval(self) -> str:
         """Evaluate this expression to a numeric answer."""
         ...
 
@@ -26,8 +42,8 @@ class Constant(Expr):
     def __init__(self, value: float):
         self.value = value
 
-    def eval(self) -> float:
-        return self.value
+    def eval(self) -> str:
+        return incrementLine(lineNum) + " setn r" + incrementRegister(minOpenReg) + " " + str(self.value)
 
     def __str__(self) -> str:
         return f"{self.value}"
@@ -43,7 +59,7 @@ class Sum(Expr):
         self.left = left
         self.right = right
 
-    def eval(self) -> float:
+    def eval(self) -> str:
         return self.left.eval() + self.right.eval()
 
     def __str__(self) -> str:
