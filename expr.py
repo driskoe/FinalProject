@@ -10,7 +10,7 @@ lineNum = 0
 def allocateReg():
     if not freeRegisters:
         raise RuntimeError("No free registers available")
-    return heapq.heapop(freeRegisters)
+    return heapq.heappop(freeRegisters)
 
 def freeReg(reg):
     heapq.heappush(freeRegisters, reg)
