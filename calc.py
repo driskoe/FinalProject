@@ -70,7 +70,7 @@ def parse_list(words: list[str]) -> Expr:
     else:
         # if we expect an expression, and it doesn't start with a left paren,
         # it must be a number
-        result =  Constant(float(next))
+        result =  Constant(int(next))
         result.eval()
         return result
 
