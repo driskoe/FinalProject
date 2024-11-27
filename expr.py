@@ -76,10 +76,11 @@ class Sum(Expr):
         self.register = -1
 
     def eval(self) -> str:
-        self.register = self.left.register
+        self.register = allocateReg()
         value = f"{incrementLine(lineNum)} add {self.left.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
+        freeReg(self.left.register)
         return value
 
     def __str__(self) -> str:
@@ -98,10 +99,11 @@ class Product(Expr):
         self.register = -1
 
     def eval(self) -> str:
-        self.register = self.left.register
+        self.register = allocateReg()
         value =  f"{incrementLine(lineNum)} mul {self.left.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
+        freeReg(self.left.register)
         return value
 
     def __str__(self) -> str:
@@ -119,10 +121,11 @@ class Quotient(Expr):
         self.register = -1
 
     def eval(self) -> str:
-        self.register = self.left.register
+        self.register = allocateReg()
         value = f"{incrementLine(lineNum)} div {self.left.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
+        freeReg(self.left.register)
         return value 
     
     def __str__(self) -> str:
@@ -140,10 +143,11 @@ class Modulus(Expr):
         self.register = -1
 
     def eval(self) -> str:
-        self.register = self.left.register
+        self.register = allocateReg()
         value = f"{incrementLine(lineNum)} mod {self.left.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
+        freeReg(self.left.register)
         return value
 
     def __str__(self) -> str:
