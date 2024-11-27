@@ -56,7 +56,7 @@ class Constant(Expr):
 
     def eval(self) -> str:
         self.register = allocateReg()
-        value =  incrementLine(lineNum) + " setn r" + self.register + " " + str(self.value)
+        value =  f"{incrementLine(lineNum)} setn {self.register} {str(self.value)}"
         print(value)
         return value
 
