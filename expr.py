@@ -69,6 +69,22 @@ class Product(Expr):
     def __repr__(self) -> str:
         return f"Product({self.left}, {self.right})"
 
+class Division(Expr):
+    """Represent the remainder when dividing two subexpressions."""
+
+    def __init__(self, left: Expr, right: Expr):
+        self.left = left
+        self.right = right
+
+    def eval(self) -> float:
+        return self.left.eval() / self.right.eval()
+
+    def __str__(self) -> str:
+        return f"({self.left} / {self.right})"
+
+    def __repr__(self) -> str:
+        return f"Quotient({self.left}, {self.right})"
+
 class Modulus(Expr):
     """Represent the remainder when dividing two subexpressions."""
 

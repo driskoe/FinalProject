@@ -3,6 +3,8 @@
 from expr import Expr, Sum, Product, Constant
 import re 
 
+minOpenReg = 1
+lineNum = 00 
 
 def parse(s: str) -> Expr:
     """Parse a string into an expression."""
@@ -52,13 +54,17 @@ def parse_list(words: list[str]) -> Expr:
             return Sum(e1, e2)
         elif op == "*":
             return Product(e1, e2)
+        elif op == "/":
+            return Quotient(e1, e2)
+        elif op == "mod":
+            return Modulus(e1, e2)
         else:
             raise ValueError(f"Unrecognized binary operator {op!r}")
 
     else:
         # if we expect an expression, and it doesn't start with a left paren,
         # it must be a number
-        return Constant(float(next))
+        return "setn r1 " + float(next)
 
 
 def main():
