@@ -1,9 +1,20 @@
 # Remember, turn off any write-code-for-you editor extensions like Copilot!
 import abc
+import heapq
 
+freeRegisters = [f"r{i}" for i in range(1,14)]
+heapq.heapify(freeRegisters)
 
-minOpenReg = 1
 lineNum = 0
+
+def allocateReg():
+    if not freeRegisters:
+        raise RuntimeError("No free registers available")
+    return heapq.heapop(freeRegisters)
+
+def freeReg(reg):
+    heapq.heappush(freeRegisters, reg)
+
 
 def incrementLine(originalLine):
     global lineNum
@@ -18,7 +29,7 @@ def incrementRegister(originalReg):
     minOpenReg+=1
     return str(originalReg)
 
-# An abstract class that serves as an interface.
+# An abstract class that serves as an interface. 
 class Expr(abc.ABC):
     """Represents an arithmetic expression."""
 
@@ -41,9 +52,11 @@ class Constant(Expr):
 
     def __init__(self, value: float):
         self.value = value
+        self.register = -1
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " setn r" + incrementRegister(minOpenReg) + " " + str(self.value)
+        self.register = allocateReg()
+        value =  incrementLine(lineNum) + " setn r" + self.register + " " + str(self.value)
         print(value)
         return value
 
@@ -60,10 +73,13 @@ class Sum(Expr):
     def __init__(self, left: Expr, right: Expr):
         self.left = left
         self.right = right
+        self.register = -1
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " add " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
+        self.register = self.left.register
+        value = f"{incrementLine(lineNum)} add {self.left.register} {self.left.register} {self.right.register}"
         print(value)
+        freeReg(self.right.register)
         return value
 
     def __str__(self) -> str:
@@ -79,10 +95,13 @@ class Product(Expr):
     def __init__(self, left: Expr, right: Expr):
         self.left = left
         self.right = right
+        self.register = -1
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " mul " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
+        self.register = self.left.register
+        value =  f"{incrementLine(lineNum)} mul {self.left.register} {self.left.register} {self.right.register}"
         print(value)
+        freeReg(self.right.register)
         return value
 
     def __str__(self) -> str:
@@ -97,12 +116,15 @@ class Quotient(Expr):
     def __init__(self, left: Expr, right: Expr):
         self.left = left
         self.right = right
+        self.register = -1
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " div " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
+        self.register = self.left.register
+        value = f"{incrementLine(lineNum)} div {self.left.register} {self.left.register} {self.right.register}"
         print(value)
-        return value
-
+        freeReg(self.right.register)
+        return value 
+    
     def __str__(self) -> str:
         return f"({self.left} / {self.right})"
 
@@ -115,10 +137,13 @@ class Modulus(Expr):
     def __init__(self, left: Expr, right: Expr):
         self.left = left
         self.right = right
+        self.register = -1
 
     def eval(self) -> str:
-        value =  incrementLine(lineNum) + " mod " + "idealRegister" + " " + "left'sRegister " + "right'sRegister"
+        self.register = self.left.register
+        value = f"{incrementLine(lineNum)} mod {self.left.register} {self.left.register} {self.right.register}"
         print(value)
+        freeReg(self.right.register)
         return value
 
     def __str__(self) -> str:
