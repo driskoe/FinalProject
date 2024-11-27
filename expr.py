@@ -77,7 +77,7 @@ class Sum(Expr):
 
     def eval(self) -> str:
         self.register = allocateReg()
-        value = f"{incrementLine(lineNum)} add {self.left.register} {self.left.register} {self.right.register}"
+        value = f"{incrementLine(lineNum)} add {self.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
         freeReg(self.left.register)
@@ -100,7 +100,7 @@ class Product(Expr):
 
     def eval(self) -> str:
         self.register = allocateReg()
-        value =  f"{incrementLine(lineNum)} mul {self.left.register} {self.left.register} {self.right.register}"
+        value =  f"{incrementLine(lineNum)} mul {self.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
         freeReg(self.left.register)
@@ -122,7 +122,7 @@ class Quotient(Expr):
 
     def eval(self) -> str:
         self.register = allocateReg()
-        value = f"{incrementLine(lineNum)} div {self.left.register} {self.left.register} {self.right.register}"
+        value = f"{incrementLine(lineNum)} div {self.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
         freeReg(self.left.register)
@@ -144,7 +144,7 @@ class Modulus(Expr):
 
     def eval(self) -> str:
         self.register = allocateReg()
-        value = f"{incrementLine(lineNum)} mod {self.left.register} {self.left.register} {self.right.register}"
+        value = f"{incrementLine(lineNum)} mod {self.register} {self.left.register} {self.right.register}"
         print(value)
         freeReg(self.right.register)
         freeReg(self.left.register)

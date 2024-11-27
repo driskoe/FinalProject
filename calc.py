@@ -100,6 +100,8 @@ def main():
 
     # Calculator loop
     while True:
+        global lineNum
+        lineNum = 0
         s = input("> ").strip()
         if s == "":
             break
