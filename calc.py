@@ -1,6 +1,6 @@
 """A Simple Calculator"""
 
-from expr import Expr, Sum, Product, Constant
+from expr import Expr, Sum, Product, Quotient, Modulus, Constant
 import re 
 
 minOpenReg = 1

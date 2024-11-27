@@ -69,7 +69,7 @@ class Product(Expr):
     def __repr__(self) -> str:
         return f"Product({self.left}, {self.right})"
 
-class Division(Expr):
+class Quotient(Expr):
     """Represent the remainder when dividing two subexpressions."""
 
     def __init__(self, left: Expr, right: Expr):
