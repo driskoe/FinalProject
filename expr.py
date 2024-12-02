@@ -4,9 +4,15 @@ import heapq
 
 
 #global variables
-#all free registers from r1 to r13
-freeRegisters = [f"r{i}" for i in range(1,14)]
+#all free registers from r1 to r12
+freeRegisters = [f"r{i}" for i in range(1,12)]
+# r13 for the heap pointer
+# r14 for the jumping location
+# r15 for the stack pointer 
+
 heapq.heapify(freeRegisters)
+
+
 #current line num
 lineNum = 0
 
@@ -66,7 +72,11 @@ class Constant(Expr):
 
     def eval(self) -> str:
         self.register = allocateReg()
-        value =  f"{incrementLine(lineNum)} setn {self.register} {str(self.value)}"
+        value = ""
+        if(lineNum == 0):
+            value += f"{incrementLine(lineNum)} setn r15 110 \n" #initialize stack pointer
+            value += f"{incrementLine(lineNum)} setn r13 110 \n" #initialize heap pointer
+        value +=  f"{incrementLine(lineNum)} setn {self.register} {str(self.value)}"
         print(value)
         return value
 
@@ -207,3 +217,47 @@ class Negation(Expr):
 
     def __repr__(self) -> str:
         return f"Negation({self.left}, {self.right})"
+
+class Negation(Expr):
+    """Represent the additive inverse of an expression."""
+
+    def __init__(self, value: Expr):
+        self.value = value
+        self.register = -1
+
+    def eval(self) -> str:
+        self.register = allocateReg()
+        value = f"{incrementLine(lineNum)} neg {self.register} {self.value.register}"
+        print(value)
+        freeReg(self.value.register)
+        return value
+
+    def __str__(self) -> str:
+        return f"(-{self.value})"
+
+    def __repr__(self) -> str:
+        return f"Negation({self.left}, {self.right})"
+
+class Cons(Expr):
+    def __init__(self, first: Expr, rest: Expr):
+        self.first = first
+        self.rest = rest
+        self.register = -1 #stores address of list
+
+    def eval(self) -> str:
+        self.register = allocateReg()
+        value = (
+                f"{incrementLine(lineNum)} storer {self.first.register} r12 \n"
+                f"{incrementLine(lineNum)} addn r12 1 \n"
+                f"{incrementLine(lineNum)} storer {self.rest.register} r12 \n"
+                f"{incrementLine(lineNum)} addn r12 1 \n"
+            )
+        print(value)
+        freeReg(self.value.register)
+        return value
+
+    def __str__(self) -> str:
+        return f"({self.first} {self.rest})"
+
+    def __repr__(self) -> str:
+        return f"Cons({self.first}, {self.rest})"

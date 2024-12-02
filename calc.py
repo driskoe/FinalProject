@@ -1,6 +1,6 @@
 """A Simple Calculator"""
 
-from expr import Expr, Sum, Difference, Negation, Product, Quotient, Modulus, Constant
+from expr import Expr, Sum, Negation, Difference, Product, Quotient, Modulus, Constant
 import re 
 
 
@@ -19,7 +19,10 @@ def parse(s: str) -> Expr:
     return answer
 
 def parse_list(words: list[str]) -> Expr:
-    """Parse & remove a *prefix* of the list as an expression.
+    """
+    REWRITE THIS
+
+    Parse & remove a *prefix* of the list as an expression.
 
     Removes the corresponding words from the list,
     but leaves any further words in the list. E.g., after
