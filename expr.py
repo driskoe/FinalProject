@@ -142,6 +142,28 @@ class Quotient(Expr):
     def __repr__(self) -> str:
         return f"Quotient({self.left}, {self.right})"
 
+class Difference(Expr):
+    """Represent the difference of two subexpressions."""
+
+    def __init__(self, left: Expr, right: Expr):
+        self.left = left
+        self.right = right
+        self.register = -1
+
+    def eval(self) -> str:
+        self.register = allocateReg()
+        value = f"{incrementLine(lineNum)} sub {self.register} {self.left.register} {self.right.register}"
+        print(value)
+        freeReg(self.right.register)
+        freeReg(self.left.register)
+        return value 
+    
+    def __str__(self) -> str:
+        return f"({self.left} - {self.right})"
+
+    def __repr__(self) -> str:
+        return f"Difference({self.left}, {self.right})"
+
 class Modulus(Expr):
     """Represent the remainder when dividing two subexpressions."""
 

@@ -1,12 +1,12 @@
 """A Simple Calculator"""
 
-from expr import Expr, Sum, Product, Quotient, Modulus, Constant
+from expr import Expr, Sum, Difference, Product, Quotient, Modulus, Constant
 import re 
 
 
 def parse(s: str) -> Expr:
     """Parse a string into an expression."""
-    # e.g., "( 2 + 3 )" becomes ["(", "2", "+", "3", ")"]
+    # e.g., "(2 + 3)" becomes ["(", "2", "+", "3", ")"]
 
     #add whitespace between content and end parenthesis  
     s = re.sub(r'([^)^(])(\))', r'\1 \2', s)
@@ -54,11 +54,15 @@ def parse_list(words: list[str]) -> Expr:
             result = Sum(e1, e2)
             result.eval()
             return result
+        if op == "-":
+            result = Difference(e1, e2)
+            result.eval()
+            return result
         elif op == "*":
             result = Product(e1, e2)
             result.eval()
             return result
-        elif op == "/":
+        elif op == "quotient":
             result = Quotient(e1, e2)
             result.eval()
             return result
@@ -117,5 +121,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # What to do if someone runs "pyhon calc.py"
+    # What to do if someone runs "python calc.py"
     main()
