@@ -7,7 +7,6 @@ import heapq
 #all free registers from r1 to r13
 freeRegisters = [f"r{i}" for i in range(1,14)]
 heapq.heapify(freeRegisters)
-
 #current line num
 lineNum = 0
 
@@ -22,15 +21,18 @@ def freeReg(reg):
     """after done with the register, adds it back into the priority queue of free registers"""
     heapq.heappush(freeRegisters, reg)
 
-
-def incrementLine(originalLine):
-    """increments the lineNum global variable by 1 and returns the old lineNum value as a string in proper HMMMM line number format (two digits)"""
+def incrementLine(value):
+    """both increments the overall line number and returns the useable string for the current line number"""
     global lineNum
-    lineNum = originalLine+1
-    originalLine = str(originalLine)
-    if(len(originalLine) == 1):
-        originalLine = "0" + originalLine
-    return originalLine
+    lineNum+=1
+    return lineNumString(value)
+
+def lineNumString(lineNum):
+    """Converts a numerical line number into a 2+ digit string to be used in HMMM code"""
+    lineString = str(lineNum)
+    if(len(lineString)==1):
+        return "0" + lineString
+    return lineString
 
 def incrementRegister(originalReg):
     global minOpenReg
@@ -43,7 +45,7 @@ class Expr(abc.ABC):
 
     @abc.abstractmethod
     def eval(self) -> str:
-        """Evaluate this expression to a numeric answer."""
+        """Evaluate this expression to a HMMM equivalent."""
         ...
 
     @abc.abstractmethod
@@ -185,3 +187,23 @@ class Modulus(Expr):
 
     def __repr__(self) -> str:
         return f"Modulus({self.left}, {self.right})"
+
+class Negation(Expr):
+    """Represent the additive inverse of an expression."""
+
+    def __init__(self, value: Expr):
+        self.value = value
+        self.register = -1
+
+    def eval(self) -> str:
+        self.register = allocateReg()
+        value = f"{incrementLine(lineNum)} neg {self.register} {self.value.register}"
+        print(value)
+        freeReg(self.value.register)
+        return value
+
+    def __str__(self) -> str:
+        return f"(-{self.value})"
+
+    def __repr__(self) -> str:
+        return f"Negation({self.left}, {self.right})"

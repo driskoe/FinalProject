@@ -1,6 +1,6 @@
 """A Simple Calculator"""
 
-from expr import Expr, Sum, Difference, Product, Quotient, Modulus, Constant
+from expr import Expr, Sum, Difference, Negation, Product, Quotient, Modulus, Constant
 import re 
 
 
@@ -70,9 +70,14 @@ def parse_list(words: list[str]) -> Expr:
             result =  Modulus(e1, e2)
             result.eval()
             return result
+
         else:
             raise ValueError(f"Unrecognized binary operator {op!r}")
 
+    elif next == "-": #unary negation
+        e1 = parse_list(words) #there should be one expression
+        return Negation(e1) #interprets as difference between 0 and the singular epression
+    
     else:
         # if we expect an expression, and it doesn't start with a left paren,
         # it must be a number
