@@ -1,6 +1,6 @@
 """A Simple Calculator"""
 
-from expr import Expr, Sum, Negation, Difference, Product, Quotient, Modulus, Constant
+from expr import Expr, Sum, Negation, Difference, Product, Quotient, Modulus, Constant, lineNum
 import re 
 
 
@@ -53,6 +53,7 @@ def parse_list(words: list[str]) -> Expr:
         if after != ")":
             raise ValueError(f"Expected ), but found {after!r}")
 
+
         if op == "+":
             result = Sum(e1, e2)
             result.eval()
@@ -73,7 +74,6 @@ def parse_list(words: list[str]) -> Expr:
             result =  Modulus(e1, e2)
             result.eval()
             return result
-
         else:
             raise ValueError(f"Unrecognized binary operator {op!r}")
 
@@ -121,8 +121,6 @@ def main():
             break
         try:
             e = parse(s)
-            print(repr(e))
-            print(e.eval())
             print()
         except Exception as e:
             print(f"Error: {e}")

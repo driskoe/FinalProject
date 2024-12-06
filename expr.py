@@ -75,7 +75,7 @@ class Constant(Expr):
         value = ""
         if(lineNum == 0):
             value += f"{incrementLine(lineNum)} setn r15 110 \n" #initialize stack pointer
-            value += f"{incrementLine(lineNum)} setn r13 110 \n" #initialize heap pointer
+            value += f"{incrementLine(lineNum)} setn r13 160 \n" #initialize heap pointer
         value +=  f"{incrementLine(lineNum)} setn {self.register} {str(self.value)}"
         print(value)
         return value
