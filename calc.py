@@ -115,7 +115,8 @@ def main():
     # Calculator loop
     while True:
         global lineNum
-        lineNum = 0
+        lineNum = 0  # Reset line number at the start of each new expression
+        print(f"Line number reset to {lineNum}")
         s = input("> ").strip()
         if s == "":
             break

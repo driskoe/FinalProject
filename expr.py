@@ -31,11 +31,13 @@ def incrementLine(value):
     """both increments the overall line number and returns the useable string for the current line number"""
     global lineNum
     lineNum+=1
+    print(value)
+    print(lineNum)
     return lineNumString(value)
 
-def lineNumString(lineNum):
+def lineNumString(value):
     """Converts a numerical line number into a 2+ digit string to be used in HMMM code"""
-    lineString = str(lineNum)
+    lineString = str(value)
     if(len(lineString)==1):
         return "0" + lineString
     return lineString
